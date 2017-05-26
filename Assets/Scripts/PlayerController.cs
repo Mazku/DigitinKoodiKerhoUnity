@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
         // Set animator parameters
         animator.SetBool("isGrounded", isGrounded);
+        animator.SetFloat("horizontalSpeed", GetComponent<Rigidbody2D>().velocity.x);
         animator.SetFloat("verticalSpeed", GetComponent<Rigidbody2D>().velocity.y);
     }
 
