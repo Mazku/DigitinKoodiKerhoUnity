@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Effect : MonoBehaviour
+public class Effect : BaseBehaviour
 {
     public float lifetime;
 
     void Start()
     {
-        Invoke("DestroyIt", lifetime);
+        DelayThenDo(lifetime, DestroyIt);
     }
 
     void DestroyIt()

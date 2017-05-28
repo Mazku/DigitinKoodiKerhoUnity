@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelConfiguration : MonoBehaviour
+public class LevelConfiguration : BaseBehaviour
 {
     public float deathVerticalLevel;
 
@@ -26,11 +26,21 @@ public class LevelConfiguration : MonoBehaviour
         instance = this;
     }
 
+    void Start()
+    {
+        Time.timeScale = 1.0f;
+    }
+
     void OnDrawGizmos()
     {
         var gizmoHeight = 50;
 
         Gizmos.color = Color.red;
         Gizmos.DrawCube(new Vector3(0, -gizmoHeight / 2 + deathVerticalLevel), new Vector3(30000, gizmoHeight));
+    }
+
+    public void OnGameOver()
+    {
+        Time.timeScale = 0.0f;
     }
 }

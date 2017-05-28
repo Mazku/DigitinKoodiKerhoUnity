@@ -3,7 +3,9 @@ using System.Collections;
 using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+public class PlayerController : BaseBehaviour
 {
 
     public float maxSpeed = 6f;
@@ -60,12 +62,6 @@ public class PlayerController : MonoBehaviour
         {
             rigidbody.AddForce(new Vector2(0, -jumpForce));
             Instantiate(cloudPrefab, transform.position, transform.rotation);
-        }
-
-        if (transform.position.y < LevelConfiguration.GetInstance().deathVerticalLevel)
-        {
-            // Game over
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 

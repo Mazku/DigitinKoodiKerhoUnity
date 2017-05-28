@@ -3,7 +3,7 @@ using System.Collections;
 
 [ExecuteInEditMode]
 [RequireComponent(typeof(Camera))]
-public class CameraController : MonoBehaviour
+public class CameraController : BaseBehaviour
 {
     public Transform player;
     public float speed = 0.1f;
