@@ -1,20 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class PlayerController : BaseBehaviour
 {
-
     public float maxSpeed = 6f;
     public float jumpForce = 1000f;
     public float verticalSpeed = 20;
 
     public BoxCollider2D groundCheckCollider;
     public LayerMask whatIsGround;
-
     public GameObject cloudPrefab;
 
     // variable rigidbody used to exist in Unity, now is obsolete so use keyword new to inform compiler that you are hiding the superclass:rigidbody on purpose
