@@ -12,7 +12,7 @@ public class CameraController : BaseBehaviour
 
     public void Start()
     {
-        camera = GetComponent<Camera>();
+        camera = GetComponent<Camera>(); 
     }
 
     public void Update()

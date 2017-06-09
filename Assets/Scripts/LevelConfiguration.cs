@@ -12,7 +12,7 @@ public class LevelConfiguration : BaseBehaviour
     {
         if (!instance)
         {
-            Debug.LogError("Instance of a singleton " + typeof(LevelConfiguration) + " not found.");
+            Debug.LogError("Instance of a singleton " + typeof(LevelConfiguration) + " not found."); 
         }
         return instance;
     }

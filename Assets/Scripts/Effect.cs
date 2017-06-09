@@ -12,6 +12,6 @@ public class Effect : BaseBehaviour
 
     void DestroyIt()
     {
-        Destroy(gameObject);
+        Destroy(gameObject); 
     }
 }

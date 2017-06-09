@@ -11,7 +11,7 @@ public class BaseBehaviour : MonoBehaviour
 
     IEnumerator ExecuteAfterTime(float time, Action func)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time); 
 
         func();
     }

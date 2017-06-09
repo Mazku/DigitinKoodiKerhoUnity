@@ -20,6 +20,7 @@ public class PlayerController : BaseBehaviour
     bool lookingRight = true;
     bool isGrounded = false;
     bool doubleJump = false;
+    float inputDisabledUntil = 0;
 
     // Called just before first tick
     void Start()
@@ -40,6 +41,10 @@ public class PlayerController : BaseBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (inputDisabledUntil > Time.time)
+        {
+            return;
+        }
         // Handle jump (space or up key)
         if ((Input.GetButtonDown("Jump") || (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") > 0))
             && (isGrounded || !doubleJump))
@@ -57,13 +62,17 @@ public class PlayerController : BaseBehaviour
         if (Input.GetButtonDown("Vertical") && Input.GetAxis("Vertical") < 0 && !isGrounded)
         {
             rigidbody.AddForce(new Vector2(0, -jumpForce));
-            Instantiate(cloudPrefab, transform.position, transform.rotation);
+            Instantiate(cloudPrefab, transform.position, transform.rotation); 
         }
     }
 
     // Update is called once per physics tick
     void FixedUpdate()
     {
+        if (inputDisabledUntil > Time.time)
+        {
+            return;
+        }
         if (isGrounded)
         {
             doubleJump = false;
@@ -89,6 +98,11 @@ public class PlayerController : BaseBehaviour
         animator.SetBool("isGrounded", isGrounded);
         animator.SetFloat("horizontalSpeed", GetComponent<Rigidbody2D>().velocity.x);
         animator.SetFloat("verticalSpeed", GetComponent<Rigidbody2D>().velocity.y);
+    }
+
+    public void DisableInputFor(float time)
+    {
+        inputDisabledUntil = Time.time + time;
     }
 
 }

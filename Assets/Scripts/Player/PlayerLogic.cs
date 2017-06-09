@@ -9,6 +9,10 @@ public class PlayerLogic : BaseBehaviour
     const int maxHitpoints = 100;
     const int startingLives = 3;
 
+    const float forceOnDamage = 1000f;
+    const float forceOnEnemyKill = 1000f;
+    const float disableInputOnDamageFor = 0.3f;
+
     PlayerController playerController;
     new Rigidbody2D rigidbody;
     Animator animator;
@@ -18,7 +22,7 @@ public class PlayerLogic : BaseBehaviour
     int hitPoints = maxHitpoints;
     int lives = startingLives;
 
-    bool dead;
+    bool alive = true;
 
     void Start()
     {
@@ -30,8 +34,8 @@ public class PlayerLogic : BaseBehaviour
 
     void Update()
     {
-        animator.SetBool("isAlive", !dead);
-        if (!dead)
+        animator.SetBool("isAlive", alive);
+        if (alive)
         {
             if (transform.position.y < LevelConfiguration.GetInstance().deathVerticalLevel)
             {
@@ -43,6 +47,9 @@ public class PlayerLogic : BaseBehaviour
 
     public void OnTakeDamage(Vector2 direction, int amount)
     {
+        rigidbody.AddForce(-direction.normalized * forceOnDamage + Vector2.up * forceOnDamage);
+        playerController.DisableInputFor(disableInputOnDamageFor);
+
         hitPoints -= amount;
         if (hitPoints <= 0)
         {
@@ -50,13 +57,18 @@ public class PlayerLogic : BaseBehaviour
         }
     }
 
+    public void OnKilledMonster()
+    {
+        rigidbody.AddForce(Vector2.up * forceOnEnemyKill); 
+    }
+
     void HandleDead()
     {
-        if (!dead)
+        if (alive)
         {
             lives--;
-            dead = true;
-            playerController.enabled = false;
+            alive = false;
+            playerController.DisableInputFor(0.5f);
 
             DelayThenDo(0.5f, OnDead);
         }
@@ -64,11 +76,11 @@ public class PlayerLogic : BaseBehaviour
 
     void OnDead()
     {
-        playerController.enabled = true;
         if (lives > 0)
         {
             // Respawn
-            dead = false;
+            alive = true;
+            hitPoints = maxHitpoints;
             rigidbody.velocity = Vector2.zero;
             transform.position = spawnPoint;
         }
