@@ -19,8 +19,8 @@ public class PlayerLogic : BaseBehaviour
 
     Vector3 spawnPoint;
 
-    int hitPoints = maxHitpoints;
-    int lives = startingLives;
+    public int hitPoints = maxHitpoints;
+    public int lives = startingLives;
 
     bool alive = true;
 
